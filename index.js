@@ -27,11 +27,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-    const { email, password, firstName, lastName} = req.body
+    let { email, password, firstName, lastName} = req.body
 
     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     const emailResult = emailRegexp.test(email)
-    
+    email.toLowerCase()
     if(!emailResult){
         return res.status(400).send( {'status': 'error', 'message': 'Invalid e-mail'})
     }
@@ -136,8 +136,8 @@ app.get('/register', async (req, res) => {
 })
 
 app.post('/login', async(req, res) =>{
-    const { email, password} = req.body
-
+    let { email, password} = req.body
+    email.toLowerCase
     pword = await bcrypt.hash(password, 10)
     let resul = ''
     try{
